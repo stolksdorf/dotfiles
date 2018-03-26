@@ -54,6 +54,7 @@
 
 
 	la   = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	las  = log --graph --decorate --pretty=oneline --abbrev-commit --all --simplify-by-decoration
 	laa  = log --graph  --pretty=format:'%C(yellow)%h%Creset -%C(cyan)%d %Creset%s %C(bold blue)<%an>%Creset (%cr)' --abbrev-commit --all
 
 	;Basic
@@ -87,7 +88,7 @@
 	cleanup    = "!git co master && git fetch origin --prune && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
 	;Commits
-	c      = "!f() { git status -s && git add -A && git commit -m \"$1\";}; f"
+	c      = "!f() { git status -s && git add -u && git commit -m \"$1\";}; f"
 	save   = "!f() { git status -s && git add -A && git commit -m \"$1\";}; f"
 	track  = "!f(){ git branch -u origin/$1;};f"
 	oops   = "!git add -A && git commit --amend -C HEAD"
