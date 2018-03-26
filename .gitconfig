@@ -1,0 +1,103 @@
+[core]
+	symlinks = false
+	ignorecase = false
+	autocrlf = false
+	longpaths = true
+	excludesfile = $HOME/.gitignore
+[color]
+	ui = auto
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = true
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+[pack]
+	packSizeLimit = 2g
+[help]
+	format = html
+[http]
+	sslcainfo = C:\\Dropbox\\root\\Tools\\Software\\Git\\mingw64\\ssl\\certs\\ca-bundle.crt
+[sendemail]
+	smtpserver = /bin/msmtp.exe
+[diff "astextplain"]
+	textconv = astextplain
+[rebase]
+	autosquash = true
+[user]
+	email = scott.tolksdorf@gmail.com
+	name = Scott Tolksdorf
+[push]
+	default = simple
+[pull]
+	default = simple
+[alias]
+
+	test = "!echo $git branch-name"
+	;Logs
+	cmds = "!git config -l | grep alias | cut -c 7-"
+
+	cmds2 = "!f() { git config --global --get-regexp alias | awk -v nr=2 '{sub(/^alias\\./,\"\")};{printf \"\\033[31m%_10s\\033[1;37m\", $1};{sep=FS};{for (x=nr; x<=NF; x++) {printf \"%s%s\", sep, $x; }; print \"\\033[0;39m\"}'; }; f"
+
+	cmds3 = "!git config --global --get-regexp alias | awk '{print $2}'"
+
+
+	la   = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	laa  = log --graph  --pretty=format:'%C(yellow)%h%Creset -%C(cyan)%d %Creset%s %C(bold blue)<%an>%Creset (%cr)' --abbrev-commit --all
+
+	;Basic
+	m   = merge --no-ff
+	rb  = rebase
+	rbm  = rebase master
+	st  = status -s
+	b   = branch -v
+	co  = checkout
+	com = checkout master
+	up  = pull --rebase
+	shove = push --force
+
+	branch-name = rev-parse --abbrev-ref HEAD
+
+	peeps = "!git log --pretty=format:%aN | sort | uniq -c | sort -rn"
+
+	repo = "!f(){ giturl=$(git config --get remote.origin.url); gu=${giturl/git@github.com:/https://github.com/}; start $gu; }; f"
+
+	removenm = "!git rm -r --cached node_modules && git commit -m 'Removing node_modules from history'"
+	fixlock    = "!rm package-lock.json && npm install && git add package-lock.json"
+
+	;Branches
+	new = "!f(){ git checkout -b $1;};f"
+	remove   = "!f(){ git branch -D $1; git push origin :$1;}; f"
+	publish  = "!git push -u origin $(git branch-name)"
+	overhere = "!f(){ git branch -f $1 && git co $1;}; f"
+	flush    = "!git reset --hard"
+	sync     = "!f(){ git fetch --all;git co $1/master;git branch -f master;git push origin master;git co -;}; f"
+	sub      = "!git submodule init; git submodule update"
+	cleanup    = "!git co master && git fetch origin --prune && git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+
+	;Commits
+	c      = "!f() { git status -s && git add -A && git commit -m \"$1\";}; f"
+	save   = "!f() { git status -s && git add -A && git commit -m \"$1\";}; f"
+	track  = "!f(){ git branch -u origin/$1;};f"
+	oops   = "!git add -A && git commit --amend -C HEAD"
+
+	;Rebasing
+
+	fixed      = "!git add -A && git rebase --continue"
+	jetpack    = "!git rebase --abort"
+
+
+	;Remotes
+	newremote = "!f(){ heroku git:remote -a $1 -r $2 && git push $2 master:master && git branch $2 --track $2/master &&  git config remote.$2.push $2:master; };f"
+	getremote = "!f(){ heroku git:remote -a $1 -r $2 && git fetch $2 && git branch $2 --track $2/master &&  git config remote.$2.push $2:master; };f"

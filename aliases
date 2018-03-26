@@ -1,0 +1,11 @@
+e.=explorer .
+ls=ls --color $*
+pwd=cd
+
+thal=cd C:\thalmic
+ni=npm i -S
+nr=npm run-script $1 $2 $3 $4 $5 $6 $7 $8 $9
+js=cd C:\Dropbox\root\Programming\Javascript
+mp3=node C:\Dropbox\root\Programming\Javascript\mp3\index.js $1
+standup=node C:\Dropbox\root\Programming\Javascript\standup\standup.js $1
+bfg=java -jar C:\Dropbox\root\home\bfg.jar $1 $2 $3 $4
