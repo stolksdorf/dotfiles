@@ -31,7 +31,7 @@ module.exports = {
 			skipComments   : true,
 			skipBlankLines : true,
 		}],
-		'eslint max-depth'     : ['warn', { max: 4}],
+		'max-depth'            : ['warn', { max: 4}],
 		'max-params'           : ['warn', { max: 4 }],
 		'no-restricted-syntax' : ['warn', 'ClassDeclaration', 'SwitchStatement'],
 		'no-unused-vars'       : ['warn', {
